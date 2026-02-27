@@ -1,0 +1,113 @@
+/* Additional App-specific styles */
+
+/* Ensure smooth scrolling behavior */
+html {
+  scroll-behavior: auto;
+}
+
+/* Section stacking for pinned sections */
+.section-pinned {
+  will-change: transform;
+}
+
+/* Image optimization */
+.section-pinned img {
+  will-change: transform, opacity;
+}
+
+/* Gold bar shimmer effect */
+.gold-bar::after,
+.gold-bar-horizontal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .section-pinned .headline-display {
+    font-size: clamp(36px, 8vw, 56px);
+  }
+  
+  .section-pinned > div[class*="max-w-["] {
+    max-width: 70vw !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-pinned .headline-display {
+    font-size: clamp(28px, 10vw, 44px);
+  }
+  
+  .section-pinned > div[class*="max-w-["] {
+    max-width: 85vw !important;
+  }
+  
+  .gold-bar,
+  .section-pinned .gold-bar {
+    width: 3px !important;
+    height: 40vh !important;
+  }
+  
+  .section-pinned > div[class*="right-["] {
+    right: 4vw !important;
+  }
+  
+  .section-pinned > div[class*="left-["] {
+    left: 4vw !important;
+  }
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid rgba(212, 160, 63, 0.6);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .gold-bar::after,
+  .gold-bar-horizontal::after {
+    display: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .grain-overlay::before,
+  nav,
+  .gold-bar::after {
+    display: none !important;
+  }
+}
